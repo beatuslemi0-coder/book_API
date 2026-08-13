@@ -1,18 +1,15 @@
 
-const multer = require('multer');
-const path = require('path');
+import multer from "multer";
+import { CloudinaryStorage } from 
+"multer-storage-cloudinary";
+import cloudinary from "../config/cloudinary.js";
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/');
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: "book-commerce",
+        allowed_formats:["jpg","jpeg","png"],
     },
-    filename: (req, file, cb) => {
-        const uniqueSuffix = Date.now() + '_' +
-        Math.round(Math.random() * 1E9);
-        cb(null, uniqueSuffix +
-            path.extname(file.originalname)
-        );
-    }
 });
 const fileFilter = (req, file, cb) => {
     console.log(file.originalname);
@@ -22,7 +19,7 @@ const fileFilter = (req, file, cb) => {
         "image/jpeg",
         "image/jpg",
         "image/png",
-        "application/octet-stream"
+        "application/octet-stream",
     ];
     if (allowedMimeTypes.includes(file.mimetype)){
         cb(null, true);
@@ -37,4 +34,4 @@ const upload = multer({
         fileSize: 5 * 1024 *1024 
     }
 });
-module.exports = upload;
+export default upload

@@ -9,7 +9,7 @@ const createBook = async (req,res) => {
             ...req.body,
             user:req.user._id,
             coverImage:req.file ?
-            req.file.filename: ""
+            req.file.path: ""
         });
         res.status(201).json(book);
     } catch (error) {
