@@ -1,5 +1,5 @@
 const express = require("express");
-const router = express.Router(); 
+const router = express.Router();
 
 const { createBook,getBooks,getBookById,updateBook,deleteBook,searchBooks } = require("../controllers/bookController");
 const { protect } = require("../middleware/authMiddleware");
@@ -40,6 +40,7 @@ const upload = require("../middleware/uploadMiddleware");
  *          description: Book created successfully
  */
 router.post("/",protect,admin,upload.single("image"), createBook);
+
 /**
  * @swagger
  * /books:
