@@ -1,5 +1,5 @@
 const { response } = require("express");
-const Book = require("../models/bookmodel");
+const Book = require("../models/Bookmodel");
 const cloudinary = require("../config/cloudinary");
 const fs = require("fs");
 const path = require("path");
