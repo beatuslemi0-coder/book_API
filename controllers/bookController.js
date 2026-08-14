@@ -1,5 +1,5 @@
 const { response } = require("express");
-const Book = require("../models/Bookmodel");
+const Book = require("../models/bookModel");
 const cloudinary = require("../config/cloudinary");
 const fs = require("fs");
 const path = require("path");
@@ -13,7 +13,7 @@ const createBook = async (req,res) => {
 
         const { title, author,description, price,coverImage} = req.file;
 
-        if (!title || !author || !description || !price || !req.file) {
+        if (!title || !author || !description || !price || !image) {
             return res.status(400).json({
                 message: "All required book fields must be provided"
             });
