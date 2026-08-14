@@ -1,20 +1,57 @@
-const Book = require("../models/bookModel");
+const { response } = require("express");
+const Book = require("../models/bookmodel");
+const cloudinary = require("../config/cloudinary");
 const fs = require("fs");
 const path = require("path");
+const { resolve } = require("dns");
+
 
 const createBook = async (req,res) => {
-    console.log(req.file)
     try{
+        console.log("BODY:",req.body);
+        console.log("FILE:",req.file);
+
+        const { title, author,description, price,coverImage} = req.file;
+
+        if (!title || !author || !description || !price || !req.file) {
+            return res.status(400).json({
+                message: "All required book fields must be provided"
+            });
+        }
+        const result = await new Promise((resolve,reject) => {
+            const stream = cloudinary.uploader.upload_stream(
+                {
+                    folder: "book-commerce"
+                },
+                (error, result) => {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        resolve(result);
+                    }
+                }
+            );
+            stream.end(req.file.buffer);
+
+        })
         const book = await Book.create({
-            ...req.body,
-            user:req.user._id,
-            coverImage:req.file ?
-            req.file.filename: ""
+            title,
+            author,
+            description,
+            price,
+            image: req.file? req.file.path: ""
         });
-        res.status(201).json(book);
+        res.status(201).json({
+            message: "Book created succefully",
+            book
+        });
+
     } catch (error) {
+        console.error("Create Book Error:",error);
+
         res.status(500).json({
-            message: error.message
+            message: "Internal Server Error:",
+            error: error.message
         });
     }
 };
