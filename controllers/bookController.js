@@ -11,9 +11,9 @@ const createBook = async (req,res) => {
         console.log("BODY:",req.body);
         console.log("FILE:",req.file);
 
-        const { title, author,description, price,coverImage} = req.file;
+        const { title, author,description, price} = req.body;
 
-        if (!title || !author || !description || !price || !coverImage) {
+        if (!title || !author || !description || !price) {
             return res.status(400).json({
                 message: "All required book fields must be provided"
             });
@@ -39,7 +39,7 @@ const createBook = async (req,res) => {
             author,
             description,
             price,
-            coverImage: req.file? req.file.path: ""
+            image: result.secure_url
         });
         res.status(201).json({
             message: "Book created succefully",
