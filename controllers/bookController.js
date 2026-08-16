@@ -11,7 +11,7 @@ const createBook = async (req,res) => {
         console.log("BODY:",req.body);
         console.log("FILE:",req.file);
 
-        const { title, author,description, price} = req.body;
+        const { title, author,description, price} = req.file;
 
         if (!title || !author || !description || !price) {
             return res.status(400).json({
