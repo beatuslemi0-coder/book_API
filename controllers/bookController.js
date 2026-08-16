@@ -1,9 +1,6 @@
-const { Response } = require("express");
+
 const Book = require("../models/bookModel");
 const cloudinary = require("../config/cloudinary");
-const fs = require("fs");
-const path = require("path");
-const { resolve } = require("dns");
 
 
 const createBook = async (req,res) => {
