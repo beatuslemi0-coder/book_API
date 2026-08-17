@@ -112,6 +112,13 @@ router.get("/:id",getBookById);
  *         multipart/form-data:
  *           schema:
  *             type: object
+ *             required: [
+ *               "title",
+ *               "aothor",
+ *               "publishedYear",
+ *               "price",
+ *               "description"
+ *             ],
  *             properties:
  *               title: 
  *                 type: string

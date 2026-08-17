@@ -10,7 +10,7 @@ const createBook = async (req,res) => {
 
         const { title, author,publishedYear,price,description, } = req.body;
 
-        if (!title || !author || !description || !price) {
+        if (!title || !author || !description || !price  || !publishedYear) {
             return res.status(400).json({
                 message: "All required book fields must be provided"
             });
