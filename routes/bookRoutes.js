@@ -14,39 +14,49 @@ const upload = require("../middleware/uploadMiddleware");
  *        - Books
  *      security:
  *        - bearerAuth: []
- *      requestBody:
- *        required: true 
- *        content:
- *          multipart/form-data:
- *            schema:
- *              type: object
- *              required:[
- *                "title",
- *                "author",
- *                "publishedYear",
- *                "price",
- *                "description"
- *              ],
- *              properties:
- *                title:
- *                  type: string
- *                author: 
- *                  type: string
- *                price:
- *                  type: number
- *                publishedYear:
- *                  type: number
- *                Description:
- *                  type: string
- *                image:
- *                  type: string
- *                  format: binary
- *               
+ *      requestBody:{
+ *        required: true,
+ *        content: {
+ *          "multipart/form-data":{
+ *             schema: {
+ *               type: "object",
+ *               required: [
+ *                 "title",
+ *                 "author",
+ *                 "publishedYear",
+ *                 "price",
+ *                 "description"
+ *               ],
+ *               properties: {
+ *                 title: {
+ *                    type: "string"
+ *                 },
+ *                 author: {
+ *                   type: "string"
+ *                 },
+ *                 publishedYear: {
+ *                   type: "string"
+ *                 },
+ *                 price: {
+ *                   type: "number"
+ *                 },
+ *                 description: {
+ *                   type: "string"
+ *                 },
+ *                 image: {
+ *                   type: "string",
+ *                   format: "binary"
+ *                 }
+ *               }
+ *             }
+ *           }
+ *         }
+ *      }           
  *      responses:
  *        201:
  *          description: Book created successfully
  */
-router.post("/",authMiddleware,protect,admin,upload.single("image"), createBook);
+router.post("/",protect,admin,upload.single("image"), createBook);
 
 /**
  * @swagger
@@ -119,13 +129,6 @@ router.get("/:id",getBookById);
  *         multipart/form-data:
  *           schema:
  *             type: object
- *             required: [
- *               "title",
- *               "author",
- *               "publishedYear",
- *               "price",
- *               "description"
- *             ],
  *             properties:
  *               title: 
  *                 type: string
