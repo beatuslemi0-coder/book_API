@@ -8,50 +8,32 @@ const upload = require("../middleware/uploadMiddleware");
 /**
  * @swagger
  * /books:
- *    post:
- *      summary: Create new book
- *      tags:
- *        - Books
- *      security:
- *        - bearerAuth: []
- *      requestBody:{
- *        required: true,
- *        content: {
- *          "multipart/form-data":{
- *             schema: {
- *               type: "object",
- *               required: [
- *                 "title",
- *                 "author",
- *                 "publishedYear",
- *                 "price",
- *                 "description"
- *               ],
- *               properties: {
- *                 title: {
- *                    type: "string"
- *                 },
- *                 author: {
- *                   type: "string"
- *                 },
- *                 publishedYear: {
- *                   type: "string"
- *                 },
- *                 price: {
- *                   type: "number"
- *                 },
- *                 description: {
- *                   type: "string"
- *                 },
- *                 image: {
- *                   type: "string",
- *                   format: "binary"
- *                 }
- *               }
- *             }
- *           }
- *         }
- *      }           
+ *   post:
+ *     summary: Create new book
+ *     tags:
+ *       - Books
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type:string
+ *               author:
+ *                 type: string
+ *               price:
+ *                 type: number
+ *               publishedYear:
+ *                 type: number
+ *               image:
+ *                 type:string
+ *                 formart:binary
+ * 
+ *       
  *      responses:
  *        201:
  *          description: Book created successfully
