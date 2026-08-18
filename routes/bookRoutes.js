@@ -20,6 +20,15 @@ const upload = require("../middleware/uploadMiddleware");
  *        multipart/form-data:
  *          schema:
  *            type: object
+ *            required:
+ *              - title
+ *              - author
+ *              - publishedYear
+ *              - price
+ *              - description
+ *       
+ *     
+ *              
  *            properties:
  *              title:
  *                type:string
@@ -29,6 +38,8 @@ const upload = require("../middleware/uploadMiddleware");
  *                type: number
  *              publishedYear:
  *                type: number
+ *              description:
+ *                type: string
  *              image:
  *                type:string
  *                formart:binary
