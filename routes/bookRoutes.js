@@ -9,41 +9,43 @@ const upload = require("../middleware/uploadMiddleware");
  * @swagger
  * /books:
  *   post:
- *     summary: Create new book
+ *     summary: Create a new book
  *     tags:
  *       - Books
  *     security:
- *       - bearerAuth: []
+ *       - beareAuth: []
  *     requestBody:
  *       required: true
  *       content:
  *         multipart/form-data:
  *           schema:
  *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               author:
+ *                 type: string
+ *               publishedYear:
+ *                 type: number
+ *               price:
+ *                 type: number
+ *               description:
+ *                 type: string
+ *               image:
+ *                 type: string
+ *                 format: binary
  *             required:
  *               - title
  *               - author
  *               - publishedYear
  *               - price
  *               - description
- *             properties:
- *             title:
- *               type: string
- *             author:
- *               type: string
- *             price:
- *               type: number
- *             publishedYear:
- *               type: number
- *             description:
- *               type: string
- *             image:
- *               type: string
- *               format: binary
- *   responses:
- *     201:
- *       description: Book created successfully
- * 
+ *     responses:
+ *       201:
+ *         description: Book created successfully
+ *       400:
+ *         description: All required book fields must be provided
+ *               
  */
 router.post("/",protect,admin,upload.single("image"), createBook);
 
