@@ -18,15 +18,10 @@ const options = {
                 bearerAuth: {
                     type: "http",
                     scheme: "bearer",
-                    bearerFormat: "JWT",
-                },
-            },
-        },
-        security: [
-            {
-                bearerAuth: [],
-            },
-        ]
+                    bearerFormat: "JWT"
+                }
+            }
+        }
     },
     apis: ["./routes/*.js"]
 };
