@@ -5,47 +5,6 @@ const { createBook,getBooks,getBookById,updateBook,deleteBook,searchBooks } = re
 const { protect } = require("../middleware/authMiddleware");
 const { admin } = require("../middleware/adminMiddleware");
 const upload = require("../middleware/uploadMiddleware");
-/**
- * @swagger
- * /books:
- *   post:
- *    summary: Create new book
- *    tags:
- *      - Books
- *    security:
- *      - bearerAuth: []
- *    requestBody:
- *      required: true
- *      content:
- *        multipart/form-data:
- *          schema:
- *            type: object
- *            required:
- *              - title
- *              - author
- *              - publishedYear
- *              - price
- *              - description
- *            properties:
- *              title:
- *                type:string
- *              author:
- *                type: string
- *              price:
- *                type: number
- *              publishedYear:
- *                type: number
- *              description:
- *                type: string
- *              image:
- *                type:string
- *                formart:binary
- * 
- *       
- *      responses:
- *        201:
- *          description: Book created successfully
- */
 router.post("/",protect,admin,upload.single("image"), createBook);
 
 /**
