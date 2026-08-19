@@ -26,9 +26,6 @@ const upload = require("../middleware/uploadMiddleware");
  *              - publishedYear
  *              - price
  *              - description
- *       
- *     
- *              
  *            properties:
  *              title:
  *                type:string
