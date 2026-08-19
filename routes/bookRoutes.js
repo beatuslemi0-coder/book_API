@@ -13,7 +13,7 @@ const upload = require("../middleware/uploadMiddleware");
  *     tags:
  *       - Books
  *     security:
- *       - beareAuth: []
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
