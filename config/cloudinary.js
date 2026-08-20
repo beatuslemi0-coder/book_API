@@ -13,6 +13,9 @@ console.log("API key existis:", !!
 process.env.CLOUDINARY_API_KEY);
 console.log("API Secret exists:", !!
 process.env.CLOUDINARY_API_SECRET);
+cloudinary.api.ping()
+  .then(result => console.log("connected:", result))
+  .catch(error => console.log("error:", error.message));
 
 
 module.exports = cloudinary;

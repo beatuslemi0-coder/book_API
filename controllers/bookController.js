@@ -1,55 +1,50 @@
-
 const Book = require("../models/bookModel");
 const cloudinary = require("../config/cloudinary");
+const streamifier = require("streamifier");
 
+const uploadToCloudinary = (buffer) => {
+    return new Promise((resolve,reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+            {
+                folder: "book-commerce",
+                resource_type: "auto",
+            },(error, result) => {
+                if (error) reject(error);
+                else resolve(result);
+            }
 
-const createBook = async (req,res) => {
-    try{
-        console.log("BODY:",req.body);
+        );
+        streamifier.createReadStream(buffer).pipe(stream);
+    });
+};
+const createBook = async (req, res) => {
+    try {
         console.log("FILE:",req.file);
+        console.log("BODY:", req.body);
 
-        const { title, author,publishedYear,price,description, } = req.body;
-
-        if (!title || !author || !description || !price  || !publishedYear) {
-            return res.status(400).json({
-                message: "All required book fields must be provided"
-            });
+        if (!req.file) {
+            return res.status(400).json({message:"Image required"});
         }
-        const result = await new Promise((resolve,reject) => {
-            const stream = cloudinary.uploader.upload_stream(
-                {
-                    folder: "book-commerce"
-                },
-                (error, result) => {
-                    if (error) {
-                        reject(error);
-                    } else {
-                        resolve(result);
-                    }
-                }
-            );
-            stream.end(req.file.buffer);
+        const result = await uploadToCloudinary(req.file.buffer);
 
-        })
         const book = await Book.create({
-            title,
-            author,
-            publishedYear,
-            price,
-            description,
-            image: result.secure_url
+            title: req.body.title,
+            author: req.body.author,
+            publishedYear: req.body.publishedYear,
+            price: req.body.price,
+            description: req.body.description,
+            image: result.secure_url,
+            imagePublicId: result.public_id,
         });
         res.status(201).json({
-            message: "Book created succefully",
-            book
+            success: true,
+            data: book,
         });
-
     } catch (error) {
-        console.error("Create Book Error:",error);
-
+        console.log("Create Book Error:",error);
         res.status(500).json({
-            message: "Internal Server Error:",
-            error: error.message
+            message: "Internal Server Error",
+            error: error.message,
         });
     }
 };
